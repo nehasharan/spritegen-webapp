@@ -10,8 +10,8 @@
 
 ## ✨ Features
 
-- Upload image or provide preferences (e.g., outfit colors, pose)
-- Generate base sprite (256x256 pixel art)
+- Provide character preferences (e.g., outfit colors, pose)
+- Generate base sprite (1024*1024 pixel art)
 - Choose from animation actions:
   - Walk Left / Right
   - Jump / Fall
