@@ -36,7 +36,24 @@
 git clone https://github.com/nehasharan/spritegen-webapp.git
 cd spritegen-webapp
 
-#### 2. Set up Frontend
+Set up Frontend
 npm install
 npm start
+
+Set up Backend (in a new terminal)
+cd backend/
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+uvicorn main:app --reload
+
+Create a .env file in the backend folder:
+OPENAI_API_KEY=your_openai_key_here
+
+Run backend with
+uvicorn main:app --reload
+
+run frontend with
+npm start
+
 
