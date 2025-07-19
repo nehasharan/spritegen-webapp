@@ -21,3 +21,27 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Python artifacts
+__pycache__/
+*.py[cod]
+
+# Virtual environment
+venv/
+
+# Environment files
+*.env
+
+# Uploads and outputs
+backend/uploads/
+backend/outputs/
+*.jpg
+*.png
+result.png
+
+# Node modules (frontend)
+node_modules/
+
+# Build outputs
+dist/
+build/
