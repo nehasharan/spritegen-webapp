@@ -1,15 +1,16 @@
-from fastapi import FastAPI, File, UploadFile, Form
+from fastapi import FastAPI, Form
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
-from sprite_generator import generate_sprite_sheet
+import requests
 import os
 from uuid import uuid4
+from generate_image import generate_pixel_art
 
 app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # update this for production
+    allow_origins=["*"],  # for development
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -17,24 +18,30 @@ app.add_middleware(
 
 @app.post("/generate/")
 async def generate_sprite(
-    image: UploadFile = File(...),
-    action: str = Form(...),
-    top_color: str = Form(default="red"),
-    bottom_color: str = Form(default="blue"),
-    accessories: str = Form(default="none")
+    gender: str = Form(...),
+    race: str = Form(...),
+    age: str = Form(...),
+    skin: str = Form(...),
+    hairstyle: str = Form(...),
+    haircolor: str = Form(...),
+    outfit: str = Form(...),
+    accessories: str = Form(...),
+    action: str = Form(...)
 ):
-    # Save uploaded image
-    filename = f"uploads/{uuid4()}_{image.filename}"
-    with open(filename, "wb") as f:
-        f.write(await image.read())
-
-    # Generate image
-    output_path = generate_sprite_sheet(
-        image_path=filename,
-        action=action,
-        top_color=top_color,
-        bottom_color=bottom_color,
-        accessories=accessories
+    # Build the prompt
+    prompt = (
+        f"Pixel art sprite of a {age} {race} {gender} character with {skin} skin, "
+        f"{hairstyle} {haircolor} hair, wearing a {outfit} outfit"
+        f"{' and wearing ' + accessories if accessories != 'none' else ''}, "
+        f"{action.replace('_', ' ')} animation frame, 16-bit style, highly detailed, transparent background"
     )
+
+    image_url = generate_pixel_art(prompt)
+
+    img_data = requests.get(image_url).content
+    os.makedirs("outputs", exist_ok=True)
+    output_path = f"outputs/{uuid4()}.png"
+    with open(output_path, 'wb') as handler:
+        handler.write(img_data)
 
     return FileResponse(output_path, media_type="image/png")
