@@ -1,5 +1,7 @@
 # 🕹️ SpriteGen Web App
 
+<img width="892" height="901" alt="Screenshot 2025-07-19 at 4 02 21 PM" src="https://github.com/user-attachments/assets/4bd45152-5085-467a-9644-85955aa7bfe8" />
+
 **SpriteGen** is a web app that allows users to generate pixel art or 256×256 sprite sheets based on an uploaded image or simple character preferences. It supports animation actions like walking, jumping, falling, eating, and more — each rendered in 5–6 frame sequences.
 
 > Ideal for indie game devs, artists, or anyone looking to create animated sprite sheets quickly using AI.
